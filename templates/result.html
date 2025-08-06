@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasil Ujian</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; text-align: center; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #007BFF; }
+        h2 { color: #333; }
+        p { font-size: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Terima Kasih, {{ nama }}!</h1>
+        <p>Jawaban Anda telah berhasil dikirim.</p>
+        <h2>Skor Akhir Anda:</h2>
+        <p style="font-size: 2em; font-weight: bold; color: #28a745;">{{ skor }} / 100</p>
+    </div>
+</body>
+</html>

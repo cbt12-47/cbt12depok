@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT - Mengenal Perangkat AI</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f4f4f9; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        .question-block { margin-bottom: 2em; border-bottom: 1px solid #eee; padding-bottom: 1em; }
+        .question { font-weight: bold; margin-bottom: 0.5em; }
+        label { display: block; margin-bottom: 0.5em; }
+        input[type="text"], input[type="submit"] { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        input[type="submit"] { background-color: #007BFF; color: white; font-weight: bold; cursor: pointer; }
+        .matching-table { border-collapse: collapse; width: 100%; margin-top: 1em;}
+        .matching-table td { border: 1px solid #ddd; padding: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tes Sumatif: Mengenal Perangkat Kecerdasan Artifisial</h1>
+        <p>Silakan isi nama dan jawab semua pertanyaan di bawah ini.</p>
+        
+        <form action="/submit" method="post">
+            <div class="question-block">
+                <label for="nama_siswa" class="question">Nama Lengkap:</label>
+                <input type="text" id="nama_siswa" name="nama_siswa" required>
+            </div>
+
+            <h2>A. Pilihan Ganda</h2>
+            {% for q in questions.pilihan_ganda %}
+            <div class="question-block">
+                <p class="question">{{ loop.index }}. {{ q.soal }}</p>
+                {% for option in q.options %}
+                <label>
+                    <input type="radio" name="{{ q.id }}" value="{{ option }}" required> {{ option }}
+                </label>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <h2>B. Menjodohkan</h2>
+            <div class="question-block">
+                <p>Jodohkan Kategori AI di lajur kiri dengan deskripsi yang paling sesuai di lajur kanan.</p>
+                <table class="matching-table">
+                    <tr><td><b>Deskripsi</b></td></tr>
+                    <tr><td><b>A.</b> Memiliki kemampuan super dan kesadaran diri seperti manusia.</td></tr>
+                    <tr><td><b>B.</b> AI yang dapat menggunakan data masa lampau untuk menentukan keluaran saat ini, contohnya pada self-driving cars.</td></tr>
+                    <tr><td><b>C.</b> Kecerdasan mesin yang jauh melampaui kinerja kognitif manusia di hampir semua bidang.</td></tr>
+                    <tr><td><b>D.</b> AI lemah yang hanya unggul untuk tugas tertentu dalam domain yang sangat spesifik.</td></tr>
+                    <tr><td><b>E.</b> AI yang dapat memahami pemikiran dan emosi entitas lain, namun belum terealisasi.</td></tr>
+                </table>
+                <br>
+                {% for q in questions.menjodohkan %}
+                <label for="{{ q.id }}" class="question">{{ loop.index }}. {{ q.pernyataan }}</label>
+                <select name="{{ q.id }}" id="{{ q.id }}" required>
+                    <option value="">Pilih Jawaban</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+                {% endfor %}
+            </div>
+
+            <h2>C. Pilihan Ganda Majemuk (Bisa lebih dari satu jawaban)</h2>
+            {% for q in questions.pilihan_majemuk %}
+            <div class="question-block">
+                <p class="question">{{ loop.index }}. {{ q.soal }}</p>
+                {% for option in q.options %}
+                <label>
+                    <input type="checkbox" name="{{ q.id }}" value="{{ option }}"> {{ option }}
+                </label>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <h2>D. Benar atau Salah</h2>
+            {% for q in questions.benar_salah %}
+            <div class="question-block">
+                <p class="question">{{ loop.index }}. {{ q.soal }}</p>
+                <label><input type="radio" name="{{ q.id }}" value="Benar" required> Benar</label>
+                <label><input type="radio" name="{{ q.id }}" value="Salah"> Salah</label>
+            </div>
+            {% endfor %}
+
+            <input type="submit" value="Kirim Jawaban">
+        </form>
+    </div>
+</body>
+</html>
